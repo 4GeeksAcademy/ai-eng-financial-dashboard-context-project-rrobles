@@ -4,7 +4,7 @@
 Aplica a la configuración de FastAPI y a cualquier exposición de servicios HTTP.
 
 ## Justification
-El backend habilita CORS con `allow_origins=["*"]` en [backend/app/main.py](../../backend/app/main.py). Esto es útil para desarrollo, pero no es adecuado como política de producción.
+El backend habilita CORS con `allow_origins=["*"]` en [backend/app/main.py](../../../backend/app/main.py). Esto es útil para desarrollo, pero no es adecuado como política de producción.
 
 ## Project guidance
 - Mantener CORS restringido en entornos no locales.
@@ -13,6 +13,6 @@ El backend habilita CORS con `allow_origins=["*"]` en [backend/app/main.py](../.
 - Mantener la documentación de `/docs` solo para entornos controlados.
 
 ## Apply here
-- [backend/app/main.py](../../backend/app/main.py)
-- [docker-compose.yml](../../docker-compose.yml)
-- [README.md](../../README.md)
+- [backend/app/main.py](../../../backend/app/main.py)
+- [docker-compose.yml](../../../docker-compose.yml)
+- [README.md](../../../README.md)

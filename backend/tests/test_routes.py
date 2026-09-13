@@ -49,6 +49,27 @@ def test_metrics_endpoint_respects_date_filters():
     assert all(item["create_date"] == first_date for item in payload)
 
 
+def test_date_endpoints_reject_inverted_ranges():
+    requests = [
+        ("/api/metrics", {}),
+        ("/api/metrics/summary", {"group_by": "month"}),
+        ("/api/metrics/categories/top", {}),
+        ("/api/metrics/comparison", {}),
+        ("/api/metrics/alerts", {}),
+        ("/api/metrics/b2b", {}),
+        ("/api/metrics/b2c", {}),
+    ]
+    inverted_range = {"start_date": "2025-03-31", "end_date": "2025-03-01"}
+
+    for path, extra_params in requests:
+        response = client.get(path, params={**extra_params, **inverted_range})
+
+        assert response.status_code == 422
+        assert response.json()["detail"] == (
+            "start_date must be less than or equal to end_date"
+        )
+
+
 def test_b2b_endpoint_only_returns_b2b_records():
     response = client.get("/api/metrics/b2b")
 

@@ -53,9 +53,9 @@ El frontend carga automáticamente la API y calcula KPI y series mensuales para 
 
 Esto se implementa en:
 
-- [frontend/src/App.tsx](frontend/src/App.tsx)
-- [frontend/src/lib/financial-utils.ts](frontend/src/lib/financial-utils.ts)
-- [frontend/src/lib/financial-types.ts](frontend/src/lib/financial-types.ts)
+- [frontend/src/App.tsx](../frontend/src/App.tsx)
+- [frontend/src/lib/financial-utils.ts](../frontend/src/lib/financial-utils.ts)
+- [frontend/src/lib/financial-types.ts](../frontend/src/lib/financial-types.ts)
 
 ### 4.2 Generación de datos mock
 El backend genera movimientos financieros sintéticos con variables como:
@@ -68,7 +68,7 @@ El backend genera movimientos financieros sintéticos con variables como:
 
 La lógica principal está en:
 
-- [backend/app/routes.py](backend/app/routes.py)
+- [backend/app/routes.py](../backend/app/routes.py)
 
 ### 4.3 Filtros y agregaciones
 La API soporta filtros de:
@@ -94,8 +94,13 @@ Además incluye cálculos de:
 ├── README.md
 ├── README.es.md
 ├── docker-compose.yml
-├── DOCUMENTACION_PROYECTO.md
-├── backend/
+├── memory-bank/
+│   ├── DOCUMENTACION_PROYECTO.md
+│   ├── EVIDENCIA_VALIDACION_REGLAS.md
+│   ├── NOTAS_ANALISIS_OBJETOS_IGNORADOS.md
+│   ├── RESUMEN_EJECUTIVO.md
+│   └── .agents/rules/
+└── backend/
 │   ├── Dockerfile
 │   ├── requirements.txt
 │   ├── app/

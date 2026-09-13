@@ -72,11 +72,11 @@ La arquitectura del sistema se comunica en este flujo:
 
 ### Conexión funcional principal
 
-- Frontend: [frontend/src/App.tsx](frontend/src/App.tsx)
-- Lógica de cálculo: [frontend/src/lib/financial-utils.ts](frontend/src/lib/financial-utils.ts)
-- Tipos de datos: [frontend/src/lib/financial-types.ts](frontend/src/lib/financial-types.ts)
-- API REST: [backend/app/routes.py](backend/app/routes.py)
-- Arranque de FastAPI: [backend/app/main.py](backend/app/main.py)
+- Frontend: [frontend/src/App.tsx](../frontend/src/App.tsx)
+- Lógica de cálculo: [frontend/src/lib/financial-utils.ts](../frontend/src/lib/financial-utils.ts)
+- Tipos de datos: [frontend/src/lib/financial-types.ts](../frontend/src/lib/financial-types.ts)
+- API REST: [backend/app/routes.py](../backend/app/routes.py)
+- Arranque de FastAPI: [backend/app/main.py](../backend/app/main.py)
 
 ## 4. Cómo ejecutar cada funcionalidad desde el punto de vista del usuario
 

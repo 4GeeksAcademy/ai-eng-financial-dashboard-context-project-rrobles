@@ -2,8 +2,8 @@
 
 ## 1. Objetos ignorados
 
-- No se encontró la carpeta `.agents` en la raíz del repositorio.
-- No se encontró la carpeta `memory-bank` en la raíz del repositorio.
+- La carpeta `.agents` no está en la raíz; las reglas están en `memory-bank/.agents/rules/`.
+- La documentación generada está en `memory-bank/`.
 - La carpeta `frontend/public/` existe, pero no aparece referenciada por la lógica principal ni por el flujo de datos del dashboard en `frontend/src/App.tsx`.
 - El archivo `backend/tests/conftest.py` no aporta lógica de negocio ni rutas; solo prepara el entorno de pruebas.
 - La carpeta `frontend/src/assets/` no aparece integrada en el flujo principal de la UI, no se referencia en `App.tsx` ni en los componentes del dashboard.

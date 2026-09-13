@@ -1,17 +1,17 @@
 # date-validation
 
 ## Scope
-Aplica a todos los endpoints que reciben `start_date` y `end_date`, especialmente a la comparación por periodo en [backend/app/routes.py](../../backend/app/routes.py).
+Aplica a todos los endpoints que reciben `start_date` y `end_date`, especialmente a la comparación por periodo en [backend/app/routes.py](../../../backend/app/routes.py).
 
 ## Justification
-La regla debe garantizar que el rango de fechas sea coherente antes de ejecutar la lógica de negocio. El repositorio actualmente acepta fechas invertidas sin un error explícito, por ejemplo en `GET /api/metrics/comparison`.
+La regla garantiza que el rango de fechas sea coherente antes de ejecutar la lógica de negocio. La validación central está en `validate_date_range` dentro de [backend/app/routes.py](../../../backend/app/routes.py).
 
 ## Project guidance
 - Validar antes del cálculo: si `start_date > end_date`, devolver un error de validación y no seguir con la consulta.
 - Usar `HTTP 400` o `HTTP 422` con un mensaje claro, por ejemplo: `"start_date must be less than or equal to end_date"`.
-- Mantener la comprobación en la ruta que recibe los parámetros, no solo en el frontend.
+- Aplicar `validate_date_range` en cada ruta que recibe ambos parámetros, no solo en el frontend.
 - Documentar el criterio del período anterior en la comparación temporal.
-- Añadir una prueba de regresión en [backend/tests/test_routes.py](../../backend/tests/test_routes.py) para validar fechas invertidas.
+- Añadir una prueba de regresión en [backend/tests/test_routes.py](../../../backend/tests/test_routes.py) para validar fechas invertidas.
 
 ## Executable task
 1. Ejecutar:
@@ -22,6 +22,6 @@ La regla debe garantizar que el rango de fechas sea coherente antes de ejecutar 
 3. Confirmar que la API no devuelve un resultado financiero con fechas inversas.
 
 ## Apply here
-- [backend/app/routes.py](../../backend/app/routes.py)
-- [backend/tests/test_routes.py](../../backend/tests/test_routes.py)
-- [backend/app/main.py](../../backend/app/main.py)
+- [backend/app/routes.py](../../../backend/app/routes.py)
+- [backend/tests/test_routes.py](../../../backend/tests/test_routes.py)
+- [backend/app/main.py](../../../backend/app/main.py)

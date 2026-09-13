@@ -4,7 +4,7 @@
 Aplica a la generación de datos y a cualquier lógica que simule negocio o historial financiero.
 
 ## Justification
-Los endpoints generan datos simulados con `generate_mock_movements(seed=42)` en [backend/app/routes.py](../../backend/app/routes.py). Esto es útil para demo y pruebas, pero no debe confundirse con datos reales de negocio.
+Los endpoints generan datos simulados con `generate_mock_movements(seed=42)` en [backend/app/routes.py](../../../backend/app/routes.py). Esto es útil para demo y pruebas, pero no debe confundirse con datos reales de negocio.
 
 ## Project guidance
 - Mantén la generación mock explícita y separada de la capa de persistencia real.
@@ -13,5 +13,5 @@ Los endpoints generan datos simulados con `generate_mock_movements(seed=42)` en 
 - Reutilizar la misma semilla y el dataset determinista solo para pruebas reproducibles.
 
 ## Apply here
-- [backend/app/routes.py](../../backend/app/routes.py)
-- [backend/tests/test_routes.py](../../backend/tests/test_routes.py)
+- [backend/app/routes.py](../../../backend/app/routes.py)
+- [backend/tests/test_routes.py](../../../backend/tests/test_routes.py)
