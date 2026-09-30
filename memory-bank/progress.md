@@ -34,6 +34,8 @@ dist/assets/index-z8H6cNp0.js   584.26 kB │ gzip: 175.20 kB
 ## Auditoría de bundle y metadatos
 
 - Metadatos de `frontend/index.html`: requisito del brief del tech lead, no de la skill. El título y la meta description describen el dashboard financiero.
+- Imágenes (punto 3 del brief): `next/image` no aplica porque el frontend usa React con Vite, no Next.js. El único archivo de imagen del proyecto es `frontend/public/favicon.svg`; los demás iconos visibles provienen de `lucide-react` (SVG). No hay elementos `<img>` que optimizar con esa API.
+- Fuentes (punto 3 del brief): `frontend/index.html` no carga fuentes externas y `frontend/src/index.css` solo declara `Inter` como primera opción de una pila con fuentes del sistema, sin `@font-face` ni import de archivos de fuente. El HTML y CSS compilados tampoco contienen fuentes web. No hay una fuente descargada a la que aplicar `font-display` o precarga; `next/font` tampoco aplica en Vite.
 - Separación de React y Recharts: hallazgo de la auditoría de bundle motivado por el chunk inicial superior a 500 kB. Se prueba con `build.rolldownOptions.output.codeSplitting.groups` de Vite para que los cambios en código de la app no invaliden innecesariamente las dependencias. Es una solución de configuración de Vite, no una regla literal de `vercel-react-best-practices`; no se aumenta `chunkSizeWarningLimit`.
 - `bundle-dynamic-imports` con `React.lazy` para los gráficos: rechazado porque ambos están en la vista inicial y retrasarlos podría empeorar LCP.
 - `bundle-barrel-imports` para Lucide: no aplicado; el paquete declara ESM y `sideEffects: false`, y no se ha medido peso innecesario en producción.
