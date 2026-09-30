@@ -2,6 +2,10 @@
 
 ## Línea base
 
+Lighthouse en modo dev, con datos cargados (puntajes proporcionados por el usuario): Accessibility 100, Best Practices 100, Performance 69, SEO 45.
+
+Performance y SEO en dev no son representativos: código sin minificar, HMR y `noindex` de Codespaces. La línea base de Performance se toma sobre `vite preview`.
+
 Comando ejecutado desde `frontend/`: `npm run build 2>&1`
 
 Salida completa (exit code 0):

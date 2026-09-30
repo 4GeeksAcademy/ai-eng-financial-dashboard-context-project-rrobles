@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardDescription } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { type MonthlyDataPoint } from '@/lib/financial-types'
 import {
@@ -47,6 +47,13 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   )
 }
 
+function describeChart(data: MonthlyDataPoint[]): string {
+  const highest = data.reduce((best, point) => point.profitPercent > best.profitPercent ? point : best)
+  const lowest = data.reduce((best, point) => point.profitPercent < best.profitPercent ? point : best)
+
+  return `From ${data[0].month} to ${data[data.length - 1].month}. Highest profit margin ${highest.profitPercent.toFixed(1)}% in ${highest.month}; lowest ${lowest.profitPercent.toFixed(1)}% in ${lowest.month}.`
+}
+
 export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
   if (loading) {
     return (
@@ -67,7 +74,7 @@ export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
   return (
     <Card className="border-border/60">
       <CardHeader className="pb-4">
-        <CardTitle className="text-base font-semibold">Profit Margin %</CardTitle>
+        <h2 data-slot="card-title" className="leading-none font-semibold text-base">Profit Margin %</h2>
         <CardDescription>Monthly profit as a percentage of total income</CardDescription>
       </CardHeader>
       <CardContent>
@@ -77,7 +84,7 @@ export function ProfitPercentChart({ data, loading }: ProfitPercentChartProps) {
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+            <LineChart data={data} title="Profit Margin %" desc={describeChart(data)} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" strokeOpacity={0.6} />
               <XAxis
                 dataKey="month"
