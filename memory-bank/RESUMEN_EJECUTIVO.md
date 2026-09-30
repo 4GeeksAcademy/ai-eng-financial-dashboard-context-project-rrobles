@@ -204,3 +204,14 @@ Se ejecutaron las rutas reales con FastAPI TestClient y se obtuvieron estas resp
 El proyecto resuelve de forma clara y operativa la necesidad de monitorear la salud financiera de un negocio mediante un panel analítico fácil de interpretar. Su valor principal no radica solo en la visualización, sino en la conexión entre la capa de datos, la lógica financiera y la experiencia del usuario final.
 
 Desde la perspectiva del usuario, el flujo es simple: inicia la aplicación, observa el dashboard, interpreta indicadores y usa filtros o consultas de la API para profundizar en segmentos o periodos específicos. La solución está lista para uso demo, validación funcional y ampliación con datos reales.
+
+## 8. Estado de las especificaciones frontend
+
+La rama `feature/frontend-specs` contiene el contrato de las tres funcionalidades en `frontend/specs/` y está lista para orientar su implementación frontend. El índice es [frontend/specs/README.md](../frontend/specs/README.md); la evidencia y decisiones están en [verification.md](../frontend/specs/verification.md), y la composición, props y estados de UI en [components.md](../frontend/specs/components.md). Los contratos TypeScript están en `api-types.ts` y `param-types.ts`.
+
+- **F1, rango en el dashboard:** `start_date` y `end_date` viajan en la URL y filtran `/api/metrics`; las fechas son opcionales e inclusivas. Facets proporciona el rango total disponible.
+- **F2, anomalías:** la tabla representa `baseline_average` como “Promedio de períodos anteriores”; el backend no calcula una ventana móvil de tres períodos. El filtro de fechas también limita el historial del baseline, por lo que rangos cortos pueden dejar el primer período sin historia previa. La UI limita `threshold` a `0.01`–`1.0`, aunque la API acepta valores desde `0` y no publica máximo.
+- **F3, B2B vs B2C:** ruta `/b2b-vs-b2c`; las categorías se solicitan por `business_type` y el porcentaje usa el total de `income` del grupo obtenido de summary, no solo la suma del top. La API puede devolver menos de cinco categorías; la UI no completa las ausentes con ceros.
+- **Decisiones compartidas:** el rango persiste como query params; período F2 usa `group_by=month`; summary F3 envía agrupación mensual; la comparación distingue falta de historia, ausencia de movimientos y ausencia de anomalías.
+
+El alcance documentado es frontend: no hay componentes React ni cambios de backend en la rama. Queda como seguimiento de PM/backend cambiar el requisito original de media móvil de tres períodos; la especificación implementable conserva el valor que hoy usa la API. La incorporación de ruteo cliente también es una dependencia de implementación.

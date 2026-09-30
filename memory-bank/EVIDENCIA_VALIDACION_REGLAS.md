@@ -265,3 +265,17 @@ Resultado verificado:
 ```text
 16 passed, 1 warning in 0.48s
 ```
+
+## 12. Verificación de las especificaciones frontend
+
+El contrato se contrastó con `GET http://localhost:8000/openapi.json` y respuestas HTTP reales. Se comprobaron las rutas `/api/metrics`, `/api/metrics/facets`, `/api/metrics/alerts`, `/api/metrics/categories/top` y `/api/metrics/summary`; los schemas `FinancialMovement`, `MetricsFacets`, `MetricsAlert`, `TopCategoryItem` y `MetricsSummaryItem` coinciden campo por campo con los tipos del frontend, cuyos nombres adaptados documentan el schema OpenAPI correspondiente.
+
+También se comprobaron en vivo los casos de límites opcionales de fecha, rango vacío, umbrales `0.01`, `1.0` y `1.01`, top de categorías de ingreso por `B2B`/`B2C` y el caso de diciembre con un solo período: summary devuelve el período, mientras alerts devuelve `[]` al no tener historia previa dentro del rango.
+
+Comando de compilación estricta ejecutado desde `frontend/`:
+
+```bash
+npx tsc --ignoreConfig --noEmit --strict --skipLibCheck specs/api-types.ts specs/param-types.ts
+```
+
+Resultado: sin errores. `--ignoreConfig` permite compilar solo los dos archivos con TypeScript 6 sin cargar `tsconfig.json`. La rama `feature/frontend-specs` contiene cinco archivos bajo `frontend/specs/`; su diff respecto de `main` no incorpora componentes React, llamadas `fetch` ni cambios del backend. La documentación de cada criterio y las decisiones vigentes se mantiene en `frontend/specs/verification.md` y `frontend/specs/components.md`.

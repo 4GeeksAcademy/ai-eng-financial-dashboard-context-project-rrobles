@@ -116,6 +116,12 @@ Además incluye cálculos de:
     ├── vite.config.ts
     ├── index.html
     ├── public/
+  ├── specs/
+  │   ├── README.md
+  │   ├── api-types.ts
+  │   ├── param-types.ts
+  │   ├── components.md
+  │   └── verification.md
     └── src/
         ├── App.tsx
         ├── index.css
@@ -138,6 +144,10 @@ Además incluye cálculos de:
             ├── mock-data.ts
             └── utils.ts
 ```
+
+### Especificaciones del frontend
+
+`frontend/specs/` contiene únicamente documentación y contratos TypeScript para F1 (rango de fechas), F2 (alertas de anomalías) y F3 (comparativa B2B vs B2C). El índice y contrato de datos están en [frontend/specs/README.md](../frontend/specs/README.md); los tipos de respuesta y parámetros, en `api-types.ts` y `param-types.ts`; los componentes/props/estados, en [components.md](../frontend/specs/components.md); y la evidencia de OpenAPI, respuestas reales y decisiones, en [verification.md](../frontend/specs/verification.md). Esta carpeta prepara el trabajo frontend, no implementa componentes ni modifica el backend.
 
 ## 6. Servicios y endpoints del backend
 
