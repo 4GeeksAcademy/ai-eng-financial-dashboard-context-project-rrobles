@@ -34,7 +34,7 @@ function App() {
       })
       .catch(() => {
         setError(
-          "No se pudo cargar la informacion financiera. Revisa la API de backend.",
+          "Financial data could not be loaded. Check the backend API.",
         );
       })
       .finally(() => {
@@ -48,8 +48,12 @@ function App() {
         <div className="flex flex-col gap-8">
           <DashboardHeader period="2024 - Full Year" />
 
+          <p role="status" className="sr-only">
+            {loading ? "Loading financial data..." : error ? "" : "Financial data loaded."}
+          </p>
+
           {error ? (
-            <div className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground">
+            <div role="alert" className="rounded-lg border border-destructive/30 bg-destructive/10 p-4 text-sm text-destructive-foreground">
               {error}
             </div>
           ) : null}

@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
+import { Card, CardContent, CardHeader, CardDescription } from '@/components/ui/card'
 import { Skeleton } from '@/components/ui/skeleton'
 import { type MonthlyDataPoint } from '@/lib/financial-types'
 import { formatCurrency } from '@/lib/financial-utils'
@@ -46,6 +46,15 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   )
 }
 
+function describeChart(data: MonthlyDataPoint[]): string {
+  const highestIncome = data.reduce((best, point) => point.income > best.income ? point : best)
+  const lowestIncome = data.reduce((best, point) => point.income < best.income ? point : best)
+  const highestOutcome = data.reduce((best, point) => point.outcome > best.outcome ? point : best)
+  const lowestOutcome = data.reduce((best, point) => point.outcome < best.outcome ? point : best)
+
+  return `From ${data[0].month} to ${data[data.length - 1].month}. Income: highest ${formatCurrency(highestIncome.income)} in ${highestIncome.month}, lowest ${formatCurrency(lowestIncome.income)} in ${lowestIncome.month}. Outcome: highest ${formatCurrency(highestOutcome.outcome)} in ${highestOutcome.month}, lowest ${formatCurrency(lowestOutcome.outcome)} in ${lowestOutcome.month}.`
+}
+
 export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
   if (loading) {
     return (
@@ -66,7 +75,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
   return (
     <Card className="border-border/60">
       <CardHeader className="pb-4">
-        <CardTitle className="text-base font-semibold">Income vs. Outcome</CardTitle>
+        <h2 data-slot="card-title" className="leading-none font-semibold text-base">Income vs. Outcome</h2>
         <CardDescription>Monthly revenue and expenditure evolution</CardDescription>
       </CardHeader>
       <CardContent>
@@ -76,7 +85,7 @@ export function IncomeOutcomeChart({ data, loading }: IncomeOutcomeChartProps) {
           </div>
         ) : (
           <ResponsiveContainer width="100%" height={280}>
-            <LineChart data={data} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
+            <LineChart data={data} title="Income vs. Outcome" desc={describeChart(data)} margin={{ top: 4, right: 8, left: 0, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" strokeOpacity={0.6} />
               <XAxis
                 dataKey="month"
