@@ -4,6 +4,7 @@ Agents working on this project **must**:
 
 - Look for **work instructions and rules** in the directory:  
   `./memory-bank/.agents/rules`
+- Internal project skills are in `./.skills/`; load `./.skills/api-contract-check/SKILL.md` before modifying frontend types or API calls.
 
 - Look for available **agent skills** in the directory:  
   `./.agents/skills`
