@@ -8,6 +8,8 @@ Performance y SEO en dev no son representativos: código sin minificar, HMR y `n
 
 Lighthouse sobre el build de producción con `vite preview` (mediciones proporcionadas por el usuario): Performance 99, FCP 0,6 s, LCP 0,6 s, TBT 0 ms, CLS 0,009. Un solo archivo JavaScript de aproximadamente 585 KB (175 KB gzip); Lighthouse estima que aproximadamente el 39 % no se usa durante la carga inicial.
 
+Informes HTML verificados: [dev antes](.agents/evidence/lighthouse/lighthouse-antes.dev-20260930T170) (Accessibility 100, Performance 69, SEO 45), [dev después](.agents/evidence/lighthouse/lighthouse-despues.dev-20260930T171) (Accessibility 100, Performance 67, SEO 45), [producción antes](.agents/evidence/lighthouse/lighthouse-antes-prod.dev-20260930T172) (Performance 99, SEO 45) y [producción después](.agents/evidence/lighthouse/lighthouse-despues-prod.dev-20260930T172.dev-20260930T173) (Performance 98, SEO 54). Los informes de producción registran respectivamente 174.600 y 177.289 bytes transferidos de JS en el resumen de recursos; son medidas de Lighthouse distintas de los tamaños gzip del build.
+
 Comando ejecutado desde `frontend/`: `npm run build 2>&1`
 
 Salida completa (exit code 0):
@@ -30,6 +32,10 @@ dist/assets/index-z8H6cNp0.js   584.26 kB │ gzip: 175.20 kB
 - Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
 - Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
 ```
+
+## Skill accessibility
+
+Se aplicaron alternativas textuales (WCAG 1.1.1) a ambos gráficos de Recharts: nombre y descripción derivados de sus datos (rango de meses y extremos), sin enumerar todos los valores. Sus títulos pasaron a `<h2>` sin alterar su aspecto (1.3.1). En `frontend/src/App.tsx`, `role="status"` anuncia carga y datos cargados, `role="alert"` anuncia el error (4.1.3), y el mensaje de error pasó a inglés para coincidir con `lang="en"` (3.1.1). El skeleton usa `motion-safe:animate-pulse` para respetar movimiento reducido. El build posterior pasó sin errores y mantuvo la advertencia previa de chunk mayor de 500 kB; produjo 585,14 kB JS (175,44 kB gzip). Verificación manual realizada por el usuario en el navegador: recorrió la página con Tab, observó el foco visible sobre los gráficos y pudo salir de ellos sin que el foco quedara atrapado. El informe Lighthouse dev después registró Accessibility 100; esta puntuación automática no sustituye la comprobación manual.
 
 ## Auditoría de bundle y metadatos
 
@@ -67,7 +73,7 @@ Se buscaron skills de *testing* y *typescript* y se eligió `mattpocock/skills@t
 
 El runner ya existía en `frontend/package.json`: `vitest` como dependencia de desarrollo y el script `test` ejecuta `vitest run`. No se instaló nada. Comando desde `frontend/`: `npm test -- src/lib/financial-utils.test.ts` (desde la raíz: `cd frontend && npm test -- src/lib/financial-utils.test.ts`).
 
-La skill pide comprobar comportamiento por interfaces públicas y usar resultados esperados independientes de la implementación. Los límites acordados son `computeKPIs(movements)` y `computeMonthlyData(movements)`; como las funciones ya existían, cada caso nuevo se ejecutó de inmediato para caracterizarlas sin refactorizar su código. Se cubrieron ingresos cero con margen finito de 0, margen negativo por egresos mayores, listas vacías y suma de varios movimientos de un mes; el test previo conserva la comprobación de orden cronológico entre años. Los casos nuevos pasaron, por lo que no hubo un ciclo rojo ni correcciones en `financial-utils.ts`.
+La skill pide comprobar comportamiento por interfaces públicas y usar resultados esperados independientes de la implementación. Los límites acordados son `computeKPIs(movements)` y `computeMonthlyData(movements)`; como las funciones ya existían, cada caso nuevo se ejecutó de inmediato para caracterizarlas sin refactorizar su código. Se cubrieron ingresos cero con margen finito de 0, margen negativo por egresos mayores, listas vacías y suma de varios movimientos de un mes; el test previo conserva la comprobación de orden cronológico entre años. `npm test -- src/lib/financial-utils.test.ts` pasó con 9 tests; no hubo un ciclo rojo ni correcciones en `financial-utils.ts`.
 
 ## Skill interna: api-contract-check
 
